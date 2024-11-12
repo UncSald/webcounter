@@ -1,55 +1,152 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<robot generator="Robot 7.1.1 (Python 3.12.3 on linux)" generated="2024-11-12T17:15:10.328405" rpa="false" schemaversion="5">
+<robot generator="Robot 7.1.1 (Python 3.12.3 on linux)" generated="2024-11-12T17:52:08.816825" rpa="false" schemaversion="5">
 <suite id="s1" name="Tests" source="/home/abmarc/Documents/webcounter/src/tests">
 <suite id="s1-s1" name="Increment" source="/home/abmarc/Documents/webcounter/src/tests/increment.robot">
 <kw name="Open And Configure Browser" owner="resource" type="SETUP">
+<if>
+<branch type="IF" condition="$BROWSER == 'chrome'">
+<kw name="Evaluate" owner="BuiltIn">
+<var>${options}</var>
+<arg>sys.modules['selenium.webdriver'].ChromeOptions()</arg>
+<arg>sys</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="NOT RUN" start="2024-11-12T17:52:08.895616" elapsed="0.000032"/>
+</kw>
+<status status="NOT RUN" start="2024-11-12T17:52:08.895186" elapsed="0.000519"/>
+</branch>
+<branch type="ELSE IF" condition="$BROWSER == 'firefox'">
+<kw name="Evaluate" owner="BuiltIn">
+<msg time="2024-11-12T17:52:08.896084" level="INFO">${options} = &lt;selenium.webdriver.firefox.options.Options object at 0x7bf2bbacaed0&gt;</msg>
+<var>${options}</var>
+<arg>sys.modules['selenium.webdriver'].FirefoxOptions()</arg>
+<arg>sys</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="PASS" start="2024-11-12T17:52:08.895882" elapsed="0.000225"/>
+</kw>
+<status status="PASS" start="2024-11-12T17:52:08.895738" elapsed="0.000405"/>
+</branch>
+<status status="PASS" start="2024-11-12T17:52:08.895168" elapsed="0.001000"/>
+</if>
+<if>
+<branch type="IF" condition="$HEADLESS == 'true'">
+<kw name="Set Selenium Speed" owner="SeleniumLibrary">
+<arg>0</arg>
+<doc>Sets the delay that is waited after each Selenium command.</doc>
+<status status="NOT RUN" start="2024-11-12T17:52:08.896322" elapsed="0.000089"/>
+</kw>
+<kw name="Call Method" owner="BuiltIn">
+<arg>${options}</arg>
+<arg>add_argument</arg>
+<arg>--headless</arg>
+<doc>Calls the named method of the given object with the provided arguments.</doc>
+<status status="NOT RUN" start="2024-11-12T17:52:08.896476" elapsed="0.000016"/>
+</kw>
+<status status="NOT RUN" start="2024-11-12T17:52:08.896207" elapsed="0.000310"/>
+</branch>
+<branch type="ELSE">
 <kw name="Set Selenium Speed" owner="SeleniumLibrary">
 <arg>${DELAY}</arg>
 <doc>Sets the delay that is waited after each Selenium command.</doc>
-<status status="PASS" start="2024-11-12T17:15:10.406485" elapsed="0.000238"/>
+<status status="PASS" start="2024-11-12T17:52:08.896599" elapsed="0.000169"/>
 </kw>
+<status status="PASS" start="2024-11-12T17:52:08.896537" elapsed="0.000260"/>
+</branch>
+<status status="PASS" start="2024-11-12T17:52:08.896197" elapsed="0.000620"/>
+</if>
 <kw name="Open Browser" owner="SeleniumLibrary">
-<msg time="2024-11-12T17:15:10.406984" level="INFO">Opening browser 'firefox' to base url 'None'.</msg>
-<msg time="2024-11-12T17:15:10.778934" level="INFO">Cannot capture screenshot because no browser is open.</msg>
-<msg time="2024-11-12T17:15:10.779175" level="FAIL">InvalidArgumentException: Message: binary is not a Firefox executable
-</msg>
+<msg time="2024-11-12T17:52:08.897025" level="INFO">Opening browser 'firefox' to base url 'None'.</msg>
 <arg>browser=${BROWSER}</arg>
 <doc>Opens a new browser instance to the optional ``url``.</doc>
-<status status="FAIL" start="2024-11-12T17:15:10.406840" elapsed="0.374503">InvalidArgumentException: Message: binary is not a Firefox executable
-</status>
+<status status="PASS" start="2024-11-12T17:52:08.896879" elapsed="1.776398"/>
 </kw>
-<status status="FAIL" start="2024-11-12T17:15:10.406052" elapsed="0.375566">InvalidArgumentException: Message: binary is not a Firefox executable
-</status>
+<status status="PASS" start="2024-11-12T17:52:08.895022" elapsed="1.778410"/>
 </kw>
-<test id="s1-s1-t1" name="At start the counter is zero" line="7">
-<status status="FAIL" start="2024-11-12T17:15:10.781756" elapsed="0.000441">Parent suite setup failed:
-InvalidArgumentException: Message: binary is not a Firefox executable
-</status>
+<test id="s1-s1-t1" name="When counter has a nonzero value and it is reset the value becomes zero" line="7">
+<kw name="Go To" owner="SeleniumLibrary">
+<msg time="2024-11-12T17:52:10.674282" level="INFO">Opening url 'http://localhost:5001'</msg>
+<arg>${HOME_URL}</arg>
+<doc>Navigates the current browser window to the provided ``url``.</doc>
+<status status="PASS" start="2024-11-12T17:52:10.674097" elapsed="0.576180"/>
+</kw>
+<kw name="Click Button" owner="SeleniumLibrary">
+<msg time="2024-11-12T17:52:11.251176" level="INFO">Clicking button 'Nollaa'.</msg>
+<arg>Nollaa</arg>
+<doc>Clicks the button identified by ``locator``.</doc>
+<status status="PASS" start="2024-11-12T17:52:11.250644" elapsed="1.600698"/>
+</kw>
+<kw name="Page Should Contain" owner="SeleniumLibrary">
+<msg time="2024-11-12T17:52:13.866436" level="INFO">Current page contains text 'nappia painettu 0 kertaa'.</msg>
+<arg>nappia painettu 0 kertaa</arg>
+<doc>Verifies that current page contains ``text``.</doc>
+<status status="PASS" start="2024-11-12T17:52:12.851731" elapsed="1.015185"/>
+</kw>
+<status status="PASS" start="2024-11-12T17:52:10.673552" elapsed="3.194273"/>
 </test>
-<test id="s1-s1-t2" name="When button pressed twice the counter is two" line="12">
-<status status="FAIL" start="2024-11-12T17:15:10.782470" elapsed="0.000309">Parent suite setup failed:
-InvalidArgumentException: Message: binary is not a Firefox executable
-</status>
+<test id="s1-s1-t2" name="At start the counter is zero" line="12">
+<kw name="Go To" owner="SeleniumLibrary">
+<msg time="2024-11-12T17:52:13.871141" level="INFO">Opening url 'http://localhost:5001'</msg>
+<arg>${HOME_URL}</arg>
+<doc>Navigates the current browser window to the provided ``url``.</doc>
+<status status="PASS" start="2024-11-12T17:52:13.870539" elapsed="0.529550"/>
+</kw>
+<kw name="Title Should Be" owner="SeleniumLibrary">
+<msg time="2024-11-12T17:52:14.906121" level="INFO">Page title is 'Laskuri'.</msg>
+<arg>Laskuri</arg>
+<doc>Verifies that the current page title equals ``title``.</doc>
+<status status="PASS" start="2024-11-12T17:52:14.400875" elapsed="0.505605"/>
+</kw>
+<kw name="Page Should Contain" owner="SeleniumLibrary">
+<msg time="2024-11-12T17:52:15.924121" level="INFO">Current page contains text 'nappia painettu 0 kertaa'.</msg>
+<arg>nappia painettu 0 kertaa</arg>
+<doc>Verifies that current page contains ``text``.</doc>
+<status status="PASS" start="2024-11-12T17:52:14.907238" elapsed="1.017419"/>
+</kw>
+<status status="PASS" start="2024-11-12T17:52:13.869065" elapsed="2.056470"/>
+</test>
+<test id="s1-s1-t3" name="When button pressed twice the counter is two" line="17">
+<kw name="Go To" owner="SeleniumLibrary">
+<msg time="2024-11-12T17:52:15.927869" level="INFO">Opening url 'http://localhost:5001'</msg>
+<arg>${HOME_URL}</arg>
+<doc>Navigates the current browser window to the provided ``url``.</doc>
+<status status="PASS" start="2024-11-12T17:52:15.927352" elapsed="0.546535"/>
+</kw>
+<kw name="Click Button" owner="SeleniumLibrary">
+<msg time="2024-11-12T17:52:16.475239" level="INFO">Clicking button 'Paina'.</msg>
+<arg>Paina</arg>
+<doc>Clicks the button identified by ``locator``.</doc>
+<status status="PASS" start="2024-11-12T17:52:16.474666" elapsed="1.566493"/>
+</kw>
+<kw name="Click Button" owner="SeleniumLibrary">
+<msg time="2024-11-12T17:52:18.042466" level="INFO">Clicking button 'Paina'.</msg>
+<arg>Paina</arg>
+<doc>Clicks the button identified by ``locator``.</doc>
+<status status="PASS" start="2024-11-12T17:52:18.041930" elapsed="1.568266"/>
+</kw>
+<kw name="Page Should Contain" owner="SeleniumLibrary">
+<msg time="2024-11-12T17:52:20.628010" level="INFO">Current page contains text 'nappia painettu 2 kertaa'.</msg>
+<arg>nappia painettu 2 kertaa</arg>
+<doc>Verifies that current page contains ``text``.</doc>
+<status status="PASS" start="2024-11-12T17:52:19.610988" elapsed="1.017390"/>
+</kw>
+<status status="PASS" start="2024-11-12T17:52:15.926349" elapsed="4.702768"/>
 </test>
 <kw name="Close Browser" owner="SeleniumLibrary" type="TEARDOWN">
 <doc>Closes the current browser.</doc>
-<status status="PASS" start="2024-11-12T17:15:10.783376" elapsed="0.000190"/>
+<status status="PASS" start="2024-11-12T17:52:20.630693" elapsed="0.981248"/>
 </kw>
-<status status="FAIL" start="2024-11-12T17:15:10.342900" elapsed="0.440744">Suite setup failed:
-InvalidArgumentException: Message: binary is not a Firefox executable
-</status>
+<status status="PASS" start="2024-11-12T17:52:08.831104" elapsed="12.780941"/>
 </suite>
-<status status="FAIL" start="2024-11-12T17:15:10.328983" elapsed="0.455254"/>
+<status status="PASS" start="2024-11-12T17:52:08.817372" elapsed="12.795429"/>
 </suite>
 <statistics>
 <total>
-<stat pass="0" fail="2" skip="0">All Tests</stat>
+<stat pass="3" fail="0" skip="0">All Tests</stat>
 </total>
 <tag>
 </tag>
 <suite>
-<stat pass="0" fail="2" skip="0" id="s1" name="Tests">Tests</stat>
-<stat pass="0" fail="2" skip="0" id="s1-s1" name="Increment">Tests.Increment</stat>
+<stat pass="3" fail="0" skip="0" id="s1" name="Tests">Tests</stat>
+<stat pass="3" fail="0" skip="0" id="s1-s1" name="Increment">Tests.Increment</stat>
 </suite>
 </statistics>
 <errors>
