@@ -21,4 +21,4 @@ Open And Configure Browser
     ELSE
         Set Selenium Speed  ${DELAY}
     END
-    Open Browser  browser=${BROWSER}
+    Open Browser  browser=${BROWSER}  options=${options}
